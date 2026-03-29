@@ -7,15 +7,14 @@ from datetime import datetime, timedelta
 import keyboard
 
 from appBlock.appBlocker import AppBlocker, block_app_list
-from utils.utils import is_admin, BLOCK_KEYS
+from utils.utils import BLOCK_KEYS
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("电脑管控工具 - 应用屏蔽")
+        self.setWindowTitle("LockTime")
         self.setFixedSize(600, 720)
         self.init_ui()
-        self.show_admin_status()
         AppBlocker.start_watcher()
 
     def init_ui(self):
@@ -44,14 +43,6 @@ class MainWindow(QMainWindow):
 
         self.app_add_btn.clicked.connect(self.add_app)
         self.app_del_btn.clicked.connect(self.del_app)
-
-    def show_admin_status(self):
-        if is_admin():
-            self.admin_label.setText("✅ 已管理员运行")
-            self.admin_label.setStyleSheet("color:green;font-weight:bold;")
-        else:
-            self.admin_label.setText("❌ 未管理员运行")
-            self.admin_label.setStyleSheet("color:red;font-weight:bold;")
 
     def add_app(self):
         app = self.app_input.text().strip()
